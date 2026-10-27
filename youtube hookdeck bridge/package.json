@@ -1,0 +1,10 @@
+{
+  "name": "youtube-hookdeck-bridge",
+  "version": "1.0.0",
+  "description": "Polls YouTube Search and routes to Hookdeck",
+  "main": "index.js",
+  "dependencies": {
+    "@googleapis/youtube": "^13.0.0",
+    "axios": "^1.6.0"
+  }
+}
