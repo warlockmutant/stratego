@@ -1,0 +1,27 @@
+name: Check YouTube Search
+on:
+  schedule:
+    - cron: '*/15 * * * *' # Runs every 15 minutes
+  workflow_dispatch: # Allows you to trigger it manually via the UI to test
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/tools@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Execute script
+        run: node index.js
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          HOOKDECK_SOURCE_URL: ${{ secrets.HOOKDECK_SOURCE_URL }}
+          SEARCH_QUERY: 'stratego -due -marketing -trump -trumpster -zagrajmy -aki' # Type your search query here
