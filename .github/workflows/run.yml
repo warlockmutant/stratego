@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: "youtube hookdeck bridge" # Wrapped in quotes to handle spaces safely
+        working-directory: "youtube hookdeck bridge"
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -19,8 +19,8 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Install dependencies
-        run: npm install
+      - name: Force Install Packages
+        run: npm install googleapis axios
 
       - name: Execute script
         run: node index.js
