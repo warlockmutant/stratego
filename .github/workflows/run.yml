@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: youtube-hookdeck-bridge # Tells GitHub to look inside your folder
+        working-directory: youtube hookdeck bridge # Tells GitHub to look inside your folder
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
