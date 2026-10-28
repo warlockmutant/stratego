@@ -21,7 +21,7 @@ async function fetchAndPostVideos() {
       type: 'video',
       order: 'date',
       publishedAfter: publishedAfter,
-      maxResults: 3
+      maxResults: 10
     });
 
     const items = response.data.items || [];
