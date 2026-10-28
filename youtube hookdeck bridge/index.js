@@ -4,7 +4,6 @@ const axios = require('axios');
 const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
 const HOOKDECK_SOURCE_URL = process.env.HOOKDECK_SOURCE_URL;
 
-// 🔍 CHANGE THIS TO YOUR SEARCH QUERY:
 const SEARCH_QUERY = 'Stratego'; 
 
 async function fetchAndPostVideos() {
@@ -30,11 +29,12 @@ async function fetchAndPostVideos() {
     
     for (const item of items) {
       const realVideoId = item.id.videoId;
-      const realVideoUrl = "https://youtube.com" + realVideoId;
+      
+      // Using YouTube's short link format to avoid symbols (? and =) entirely
+      const realVideoUrl = "https://youtu.be" + realVideoId;
       
       console.log("Forwarding clean payload for: " + realVideoUrl);
 
-      // Pre-formatting the exact payload structure Discord wants right here!
       await axios.post(HOOKDECK_SOURCE_URL, {
         username: "Stratego Bot",
         avatar_url: "https://images.newscientist.com/wp-content/uploads/2018/03/23111650/strategus2.jpg?width=837",
