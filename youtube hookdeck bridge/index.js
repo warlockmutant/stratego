@@ -5,7 +5,7 @@ const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
 const HOOKDECK_SOURCE_URL = process.env.HOOKDECK_SOURCE_URL;
 
 // FORCE A BROAD SEARCH QUERY FOR TESTING
-const SEARCH_QUERY = 'Stratego board game'; 
+const SEARCH_QUERY = 'Stratego'; 
 
 async function fetchAndPostVideos() {
   const youtube = google.youtube({ version: 'v3', auth: YOUTUBE_API_KEY });
