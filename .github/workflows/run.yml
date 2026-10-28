@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: "youtube hookdeck bridge" # Tells GitHub to look inside your folder
+        working-directory: "youtube hookdeck bridge" # Wrapped in quotes to handle spaces safely
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -17,7 +17,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22' # Fixed the warning by updating to Node 22
+          node-version: '22'
 
       - name: Install dependencies
         run: npm install
