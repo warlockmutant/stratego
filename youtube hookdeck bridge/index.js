@@ -4,46 +4,45 @@ const axios = require('axios');
 const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
 const HOOKDECK_SOURCE_URL = process.env.HOOKDECK_SOURCE_URL;
 
-// FORCE A BROAD SEARCH QUERY FOR TESTING
+// 🔍 CHANGE THIS TO YOUR SEARCH QUERY:
 const SEARCH_QUERY = 'Stratego'; 
 
 async function fetchAndPostVideos() {
   const youtube = google.youtube({ version: 'v3', auth: YOUTUBE_API_KEY });
   
-  // Look back 30 days instead of 15 minutes to guarantee we find videos for the test
+  // Looking back 30 days for this definitive test
   const publishedAfter = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
 
   try {
+    console.log(`Connecting to YouTube API to look for: "${SEARCH_QUERY}"...`);
+    
     const response = await youtube.search.list({
       part: 'snippet',
       q: SEARCH_QUERY,
       type: 'video',
       order: 'date',
       publishedAfter: publishedAfter,
-      maxResults: 3 // Let's just grab the top 3 recent videos
+      maxResults: 3
     });
 
     const items = response.data.items || [];
-    console.log(`--- YOUTUBE SEARCH RESULTS ---`);
-    console.log(`Found ${items.length} videos for "${SEARCH_QUERY}" since ${publishedAfter}`);
+    console.log(`Successfully found ${items.length} total videos matching your terms.`);
     
-    if (items.length === 0) {
-      console.log("No videos found. Nothing was sent to Hookdeck.");
-    }
-
     for (const item of items) {
-      console.log(`Sending to Hookdeck: ${item.snippet.title}`);
+      const realVideoId = item.id.videoId;
+      const realVideoUrl = "https://youtube.com" + realVideoId;
       
-      // Fire the webhook payload
+      console.log("Forwarding clean payload for: " + realVideoUrl);
+
+      // Pre-formatting the exact payload structure Discord wants right here!
       await axios.post(HOOKDECK_SOURCE_URL, {
-        videoId: item.id.videoId,
-        title: item.snippet.title,
-        channel: item.snippet.channelTitle
+        username: "Stratego Bot",
+        avatar_url: "https://images.newscientist.com/wp-content/uploads/2018/03/23111650/strategus2.jpg?width=837",
+        content: "A New Stratego Video\n" + realVideoUrl
       });
     }
-    console.log(`------------------------------`);
   } catch (error) {
-    console.error('Execution failed:', error.message);
+    console.error('Execution failed completely:', error.message);
     process.exit(1);
   }
 }
