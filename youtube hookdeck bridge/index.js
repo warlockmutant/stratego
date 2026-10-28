@@ -4,13 +4,13 @@ const axios = require('axios');
 const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
 const HOOKDECK_SOURCE_URL = process.env.HOOKDECK_SOURCE_URL;
 
-const SEARCH_QUERY = 'Stratego'; 
+const SEARCH_QUERY = 'Stratego -trump -trumpster -marketing -zagrajmy -aki'; 
 
 async function fetchAndPostVideos() {
   const youtube = google.youtube({ version: 'v3', auth: YOUTUBE_API_KEY });
   
   // Looking back 30 days for this definitive test
-  const publishedAfter = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+  const publishedAfter = new Date(Date.now() - 15 * 60 * 1000).toISOString();
 
   try {
     console.log(`Connecting to YouTube API to look for: "${SEARCH_QUERY}"...`);
