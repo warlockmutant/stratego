@@ -1,51 +1,29 @@
-const { google } = require('googleapis');
-const axios = require('axios');
+name: Check YouTube Search
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
 
-const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
-const HOOKDECK_SOURCE_URL = process.env.HOOKDECK_SOURCE_URL;
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "youtube hookdeck bridge"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-const SEARCH_QUERY = 'Stratego'; 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
 
-async function fetchAndPostVideos() {
-  const youtube = google.youtube({ version: 'v3', auth: YOUTUBE_API_KEY });
-  
-  // Set to look back 30 days for this definitive test
-  const publishedAfter = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+      - name: Force Install Packages
+        run: npm install googleapis axios
 
-  try {
-    console.log(`Connecting to YouTube API to look for: "${SEARCH_QUERY}"...`);
-    
-    const response = await youtube.search.list({
-      part: 'snippet',
-      q: SEARCH_QUERY,
-      type: 'video',
-      order: 'date',
-      publishedAfter: publishedAfter,
-      maxResults: 3
-    });
-
-    const items = response.data.items || [];
-    console.log(`--- YOUTUBE API RESPONSE ---`);
-    console.log(`Successfully found ${items.length} total videos matching your terms.`);
-    
-    if (items.length === 0) {
-      console.log("⚠️ Zero videos were found. Check your search spelling or broaden your terms!");
-    }
-
-    for (const item of items) {
-      console.log(`-> Forwarding video to Hookdeck: "${item.snippet.title}"`);
-      
-      await axios.post(HOOKDECK_SOURCE_URL, {
-        videoId: item.id.videoId,
-        title: item.snippet.title,
-        channel: item.snippet.channelTitle
-      });
-    }
-    console.log(`----------------------------`);
-  } catch (error) {
-    console.error('❌ Execution failed completely:', error.message);
-    process.exit(1);
-  }
-}
-
-fetchAndPostVideos();
+      - name: Execute script
+        run: node index.js
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          HOOKDECK_SOURCE_URL: ${{ secrets.HOOKDECK_SOURCE_URL }}
