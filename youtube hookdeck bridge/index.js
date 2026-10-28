@@ -31,7 +31,7 @@ async function fetchAndPostVideos() {
       const realVideoId = item.id.videoId;
       
       // Explicitly combining the exact text strings with their correct forward slashes
-      const cleanEmbedUrl = "https://youtube.com" + realVideoId;
+      const cleanEmbedUrl = "https://youtube.com/embed/" + realVideoId;
       
       console.log("Forwarding clean payload for: " + cleanEmbedUrl);
 
