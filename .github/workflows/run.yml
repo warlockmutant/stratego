@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/tools@v4
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
 
@@ -24,4 +24,3 @@ jobs:
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
           HOOKDECK_SOURCE_URL: ${{ secrets.HOOKDECK_SOURCE_URL }}
-          SEARCH_QUERY: 'stratego -due -marketing -trump -trumpster -zagrajmy -aki' # Type your search query here
