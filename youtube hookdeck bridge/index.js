@@ -30,15 +30,15 @@ async function fetchAndPostVideos() {
     for (const item of items) {
       const realVideoId = item.id.videoId;
       
-      // Using %2F instead of slashes so the system cannot strip them out!
-      const safeEmbedUrl = "https:%%2F%%2Fwww.youtube.com%%2Fembed%%2F" + realVideoId;
+      // Explicitly combining the exact text strings with their correct forward slashes
+      const cleanEmbedUrl = "https://youtube.com" + realVideoId;
       
-      console.log("Forwarding clean encoded payload for: " + safeEmbedUrl);
+      console.log("Forwarding clean payload for: " + cleanEmbedUrl);
 
       await axios.post(HOOKDECK_SOURCE_URL, {
         username: "Stratego Bot",
         avatar_url: "https://images.newscientist.com/wp-content/uploads/2018/03/23111650/strategus2.jpg?width=837",
-        content: "A New Stratego Video\n" + safeEmbedUrl
+        content: "A New Stratego Video\n" + cleanEmbedUrl
       });
     }
   } catch (error) {
