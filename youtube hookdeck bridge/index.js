@@ -11,7 +11,7 @@ async function fetchAndPostVideos() {
   const youtube = google.youtube({ version: 'v3', auth: YOUTUBE_API_KEY });
   
   // Look back 30 days instead of 15 minutes to guarantee we find videos for the test
-  const publishedAfter = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+  const publishedAfter = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
 
   try {
     const response = await youtube.search.list({
