@@ -10,7 +10,7 @@ async function fetchAndPostVideos() {
   const youtube = google.youtube({ version: 'v3', auth: YOUTUBE_API_KEY });
   
   // Looking back 30 days for this definitive test
-  const publishedAfter = new Date(Date.now() - 15 * 60 * 1000).toISOString();
+  const publishedAfter = new Date(Date.now() - 60 * 60 * 1000).toISOString();
 
   try {
     console.log(`Connecting to YouTube API to look for: "${SEARCH_QUERY}"...`);
