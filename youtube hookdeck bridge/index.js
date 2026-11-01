@@ -5,6 +5,11 @@ const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
 const HOOKDECK_SOURCE_URL = process.env.HOOKDECK_SOURCE_URL;
 
 const SEARCH_QUERY = 'Stratego -trumpster -marketing -zagrajmy -aki'; 
+const BLOCKED_CHANNELS = [
+  'stampamedia',
+  'strategoswat2506',
+  'strategogaming'
+];
 
 async function fetchAndPostVideos() {
   const youtube = google.youtube({ version: 'v3', auth: YOUTUBE_API_KEY });
