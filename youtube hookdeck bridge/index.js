@@ -4,6 +4,8 @@ const axios = require('axios');
 const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
 const HOOKDECK_SOURCE_URL = process.env.HOOKDECK_SOURCE_URL;
 
+const SEARCH_QUERY = 'Stratego -trumpster -marketing -zagrajmy -aki';
+
 const BLOCKED_CHANNEL_IDS = [
   'UCBNXuc03LLBOnpAp35BPp1A', // Example ID placeholder
   'UCfAtOwhoabzNiWBtkz-UL-Q',
