@@ -4,11 +4,10 @@ const axios = require('axios');
 const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
 const HOOKDECK_SOURCE_URL = process.env.HOOKDECK_SOURCE_URL;
 
-const SEARCH_QUERY = 'Stratego -trumpster -marketing -zagrajmy -aki'; 
-const BLOCKED_CHANNELS = [
-  'stampamedia',
-  'strategoswat2506',
-  'strategogaming'
+const BLOCKED_CHANNEL_IDS = [
+  'UCBNXuc03LLBOnpAp35BPp1A', // Example ID placeholder
+  'UCfAtOwhoabzNiWBtkz-UL-Q',
+  'UCTCzp0bi93bj6j4bWIliBuQ'
 ];
 
 async function fetchAndPostVideos() {
@@ -33,12 +32,19 @@ async function fetchAndPostVideos() {
     console.log(`Successfully found ${items.length} total videos matching your terms.`);
     
     for (const item of items) {
+      const channelId = item.snippet.channelId;
+      const channelTitle = item.snippet.channelTitle;
+      
+      // 🔒 Match strictly by the unique Channel ID
+      if (BLOCKED_CHANNEL_IDS.includes(channelId)) {
+        console.log(`🚫 ID Filter: Skipped video from blocked channel ID: "${channelId}" (${channelTitle})`);
+        continue; 
+      }
+
       const realVideoId = item.id.videoId;
+      const cleanEmbedUrl = "https://youtube.com" + realVideoId;
       
-      // Explicitly combining the exact text strings with their correct forward slashes
-      const cleanEmbedUrl = "https://youtube.com/embed/" + realVideoId;
-      
-      console.log("Forwarding clean payload for: " + cleanEmbedUrl);
+      console.log(`Forwarding clean payload for: ${cleanEmbedUrl} (Channel: ${channelTitle})`);
 
       await axios.post(HOOKDECK_SOURCE_URL, {
         username: "Stratego Bot",
