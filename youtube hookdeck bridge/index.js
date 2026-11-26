@@ -9,7 +9,8 @@ const SEARCH_QUERY = 'Stratego -trumpster -marketing -zagrajmy -aki';
 const BLOCKED_CHANNEL_IDS = [
   'UCBNXuc03LLBOnpAp35BPp1A', // Example ID placeholder
   'UCfAtOwhoabzNiWBtkz-UL-Q',
-  'UCTCzp0bi93bj6j4bWIliBuQ'
+  'UCTCzp0bi93bj6j4bWIliBuQ',
+  'UCK1aOkYrtJe7qnfi1z_N1VQ'
 ];
 
 async function fetchAndPostVideos() {
