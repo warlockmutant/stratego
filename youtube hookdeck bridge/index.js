@@ -10,7 +10,8 @@ const BLOCKED_CHANNEL_IDS = [
   'UCBNXuc03LLBOnpAp35BPp1A', // Example ID placeholder
   'UCfAtOwhoabzNiWBtkz-UL-Q',
   'UCTCzp0bi93bj6j4bWIliBuQ',
-  'UCK1aOkYrtJe7qnfi1z_N1VQ'
+  'UCK1aOkYrtJe7qnfi1z_N1VQ',
+  'UCxxt1A_M3xgLhSeyu-beqTA'
 ];
 
 async function fetchAndPostVideos() {
